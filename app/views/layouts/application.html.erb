@@ -1,45 +1,54 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" dir="ltr">
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= content_for?(:title) ? yield(:title) : "UAM - User Access Management" %></title>
-    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "UAM - User Access Management" %>">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
-    <%= stylesheet_link_tag 'application', media: 'all' %>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i|Roboto+Mono:300,400,700|Roboto+Slab:300,400,700" rel="stylesheet">
-
-    <%= javascript_include_tag 'application' , params[:controller] , 'data-turbolinks-track': 'reload' %>
+    <title>UAM - User Access Management</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= csrf_meta_tags %>
-     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <%= javascript_include_tag 'html5shiv' %>
-      <%= javascript_include_tag 'respond.min' %>
-    <![endif]-->
 
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   </head>
-  <body class="<%= controller_name %> <%= action_name %>">
-    <header>
-      <%= render 'layouts/navigation' %>
-    </header>
-    <main role="main" class="container">
-       <%= render 'layouts/messages' %>
-       <%= yield %>
-    </main>
-		
-	<%= debug(params) if Rails.env.development? %>
-		
 
+  <body class="<%= @body_class || 'layout-default' %>">
+    <!-- Header Layout -->
+    <div class="mdk-header-layout js-mdk-header-layout">
+
+      <!-- Header -->
+      <div id="header" class="mdk-header js-mdk-header m-0" data-fixed>
+        <div class="mdk-header__content">
+          <%= render 'layouts/navbar'%>
+        </div>
+      </div>
+      <!-- // END Header -->
+
+      <!-- Header Layout Content -->
+      <div class="mdk-header-layout__content">
+
+        <div class="mdk-drawer-layout js-mdk-drawer-layout" data-push data-responsive-width="992px">
+          <div class="mdk-drawer-layout__content page">
+            <%# CONTENT  %>
+            <%= yield %>
+          </div>
+          <!-- // END drawer-layout__content -->
+
+          <% if signed_in? %>
+						<%= render 'layouts/drawer_left' %>
+					<% end %>
+        </div>
+        <!-- // END drawer-layout -->
+
+      </div>
+      <!-- // END header-layout__content -->
+
+    </div>
+    <!-- // END header-layout -->
+
+    <%= content_for :footer %>
+
+    <%= javascript_include_tag 'core-scripts', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <%= content_for :footer_scripts %>
   </body>
-	
-		<!-- For fading the ticker messages -->   
-    <script async="async" type="text/javascript"> 
-	    $(function() {
-	   $('.alert').delay(1000).fadeIn('normal', function() {
-	      $(this).delay(3500).fadeOut();
-	   });
-	});
-	</script>
-
 </html>

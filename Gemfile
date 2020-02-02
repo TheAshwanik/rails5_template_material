@@ -49,3 +49,5 @@ gem 'rack-cors'
 gem 'mini_racer'
 gem 'flatpickr_rails'
 gem "font-awesome-rails"
+
+gem 'bootscaf', group: :development

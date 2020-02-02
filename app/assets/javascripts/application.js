@@ -1,21 +1,35 @@
-// This is a manifest file that'll be compiled into application.js, which will include all the files
-// listed below.
-//
-// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, vendor/assets/javascripts,
-// or vendor/assets/javascripts of plugins, if any, can be referenced here using a relative path.
-//
-// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
-// compiled file.
-//
-// Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
-// about supported directives.
-//
-//= require jquery3
-//= require popper
-//= require rails-ujs
-//= require bootstrap
-//= require bootstrap-sprockets
-//= require flatpickr
-//= require idle
-//= require_tree ./custom
-//= requite tree .
+
+// Self Initialize DOM Factory Components
+domFactory.handler.autoInit()
+
+// Connect button(s) to drawer(s)
+var sidebarToggle = Array.prototype.slice.call(document.querySelectorAll('[data-toggle="sidebar"]'))
+
+sidebarToggle.forEach(function (toggle) {
+  toggle.addEventListener('click', function (e) {
+    var selector = e.currentTarget.getAttribute('data-target') || '#default-drawer'
+    var drawer = document.querySelector(selector)
+    if (drawer) {
+      drawer.mdkDrawer.toggle()
+    }
+  })
+})
+
+
+let drawers = document.querySelectorAll('.mdk-drawer')
+drawers = Array.prototype.slice.call(drawers)
+drawers.forEach((drawer) => {
+  drawer.addEventListener('mdk-drawer-change', (e) => {
+    if (!e.target.mdkDrawer) {
+      return
+    }
+    document.querySelector('body').classList[e.target.mdkDrawer.opened ? 'add' : 'remove']('has-drawer-opened')
+    let button = document.querySelector('[data-target="#' + e.target.id + '"]')
+    if (button) {
+      button.classList[e.target.mdkDrawer.opened ? 'add' : 'remove']('active')
+    }
+  })
+})
+
+// ENABLE TOOLTIPS
+$('[data-toggle="tooltip"]').tooltip()

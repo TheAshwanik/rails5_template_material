@@ -1,0 +1,38 @@
+<div class="mdk-drawer js-mdk-drawer" id="default-drawer" data-align="start">
+  <div class="mdk-drawer__content">
+    <div class="sidebar sidebar-light sidebar-left simplebar" data-simplebar>
+      <div class="sidebar-heading sidebar-m-t"></div>
+      <ul class="sidebar-menu">
+        <li class="sidebar-menu-item <% if current_page?(root_path) || current_page?(root_path(:index)) || current_page?(root_path(:staff)) ||  current_page?(root_path(:analytics)) %> active<% end %>">
+          <a class="sidebar-menu-button" href="<%= root_path %>">
+            <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">dvr</i>
+            <span class="sidebar-menu-text">Dashboard</span>
+          </a>
+        </li>             
+      </ul>
+      <div class="sidebar-heading">Self Care</div>
+      <div class="sidebar-block p-0">
+        <ul class="sidebar-menu" id="components_menu">
+          <li class="sidebar-menu-item <% if current_page?(new_user_session_path())%>active<% end%>">
+            <a class="sidebar-menu-button" href="<%= new_user_session_path() %>">
+              <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">verified_user</i>
+              <span class="sidebar-menu-text">Login</span>
+            </a>
+          </li>
+          <li class="sidebar-menu-item <% if current_page?(root_path(:ui_alerts))%>active<% end%>">
+            <a class="sidebar-menu-button" href="<%= root_path(:ui_alerts) %>">
+              <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">notifications</i>
+              <span class="sidebar-menu-text">Alerts</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="sidebar-p-a">
+        <% if signed_in? %> 
+					<a href="<%= destroy_user_session_path() %>" class="btn btn-primary btn-block">Logout</a> 
+				<% end %>
+		  </div>
+
+    </div>
+  </div>
+</div>

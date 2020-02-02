@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_23_011149) do
+ActiveRecord::Schema.define(version: 2020_02_02_021659) do
+
+  create_table "apps", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.string "AppName"
+    t.string "AppID"
+    t.string "BusinessOwner"
+    t.string "DU_Manager"
+    t.string "DeliveryUnit"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "email", default: "", null: false
